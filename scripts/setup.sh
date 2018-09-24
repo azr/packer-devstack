@@ -24,7 +24,4 @@ SERVICE_PASSWORD=iheartksl
 EOF
 # OFFLINE=True
 
-cat /etc/my.cnf || echo nope1
-cat /etc/mysql/my.cnf || echo nope2
-cat $MYSQL_HOME/my.cn || echo nope2
 ./stack.sh
