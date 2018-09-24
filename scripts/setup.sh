@@ -1,15 +1,30 @@
-#!/bin/sh -x
+#!/bin/bash -x
 
-git clone https://github.com/openstack-dev/devstack.git
+set -e
 
-echo "[[local|localrc]]
-ADMIN_PASSWORD=secrete
-DATABASE_PASSWORD=secrete
-RABBIT_PASSWORD=secrete
-SERVICE_PASSWORD=secrete
-SERVICE_TOKEN=a682f596-76f3-11e3-b3b2-e716f9080d50
-SCREEN_LOGDIR=/var/log/stack" > devstack/local.conf
+git clone https://github.com/openstack-dev/devstack.git -b master
 
-devstack/stack.sh
+cd devstack/
 
-echo "OFFLINE=True" >> devstack/local.conf
+
+######
+# HOST_IP=10.0.2.15 
+# HOST_IP=127.0.0.1
+cat > local.conf <<EOF
+[[local|localrc]]
+FLOATING_RANGE=192.168.1.224/27
+FIXED_RANGE=10.11.12.0/24
+FIXED_NETWORK_SIZE=256
+FLAT_INTERFACE=eth0
+ADMIN_PASSWORD=supersecret
+DATABASE_PASSWORD=iheartdatabases
+RABBIT_PASSWORD=flopsymopsy
+SERVICE_PASSWORD=iheartksl
+
+EOF
+# OFFLINE=True
+
+cat /etc/my.cnf || echo nope1
+cat /etc/mysql/my.cnf || echo nope2
+cat $MYSQL_HOME/my.cn || echo nope2
+./stack.sh
