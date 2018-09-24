@@ -2,6 +2,8 @@
 
 set -e
 
+cd
+
 git clone https://github.com/openstack-dev/devstack.git -b master
 
 cd devstack/
